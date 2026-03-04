@@ -1,0 +1,165 @@
+﻿<html><head>
+
+<style>
+a { text-decoration : none }
+a:hover { text-decoration : underline }
+body { 
+	margin-left : 20px ; 
+	margin-right : 0 ; 
+	padding-right : 10px ; 
+	border-right : 1px solid silver ; 
+	padding-bottom : 50px ;
+	}
+math[ display = "block" ] + math[ display = "block" ] {
+	margin-top : 20px ;
+	}
+</style>
+
+</head><body>
+
+<h1>Control Algorithms</h1>
+
+<p>In a closed-loop stepper motor system, we can implement a number of strategies:</p>
+
+<ul>
+<li>Halt on step error</li>
+<li>Position compensation</li>
+<li>Current boosting</li>
+<li>Full servo mode</li>
+</ul>
+
+<p>Halt on on error stops the entire machine. This is essentially an open loop control with error detection.</p>
+
+<p>A position compensation algorithm issues additional step pulses to bring the motor (back) to the desired position. This method is suitable if a certain position has to be held against external forces.</p>
+
+<p>The current boosting method makes the stepper motor generate more torque temporarily. This method can be combined with position drift compensation.</p>
+
+<p>Full servo mode effectively converts the stepper motor into a BLDC motor. The controller uses <em>field oriented control</em> (FOC) to adjust the magnetic field angle in real-time. Can be combined with current boosting. This method can be used for axes of a CNC mill or lathe.</p>
+
+<p>The encoder can also be used to detect vibrations in the motor or reaching its physical limits. </p>
+
+<h2>Field Oriented Control (FOC)</h2><div>
+
+<p>As already mentioned, the FOC method turns a stepper motor into a brushless DC motor, where the orientation of the magnetic field controls the position of the rotor. The controller looks at the rotary encoder and keeps the orientation of the field at the optimal angle relative to the rotor. This maximizes torque and prevents "slipping", which causes lost steps.</p>
+
+<p>If the motor shows a lag angle between magnetic field and rotor, the control increases currents and produce more torque, for example to compensate load changes. Similary, the controller can decrease the torque under light-load conditions.</p>
+
+<p>Stepper motor systems exhibit prominent resonances at certains frequencies. The controller can dampen these resonances by smoothing out the current shapes.</p>
+
+<p>Normally, a stepper motor has constantly changing sine wave currents in its windings (stator windings A and B). Calculating these sine currents on the fly is mathematically demanding. FOC uses <em>coordinate transformations</em> to look at the motor from the perspective of the rotor:</p>
+
+<dl>
+<dt>1. Clarke transformation</dt><dd>
+	<p>The <a href="https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_transformation"><em>Clarke transformation</em></a> (also called &alpha;&ndash;&beta;&ndash;&gamma; transformation) is used in electrical engineering to simplify balanced three-phase circuits. In such a balanced system, the sum of the three quantities is zero:</p>
+	<math display="block">
+	<msub><mi>I</mi><mi>A</mi></msub><mo>+</mo><msub><mi>I</mi><mi>B</mi></msub><mo>+</mo><msub><mi>I</mi><mi>C</mi></msub><mo>=</mo><mn>0</mn>
+	</math> 
+	<p>If these quantities are considered as vectors, these three vectors lie in a plane, because they are linear dependent:</p>
+	<math display="block">
+	<msub><mi>I</mi><mi>A</mi></msub><mo>+</mo><msub><mi>I</mi><mi>B</mi></msub><mo>=</mo><msub><mi>I</mi><mi>C</mi></msub>
+	</math> 
+
+	<p>The Clarke transform transforms the vectors A and B into a rectangular two axes coordinate system &alpha; and &beta; with the vectors <math><msub><mi>I</mi><mi>&alpha;</mi></msub><mo>, </mo><msub><mi>I</mi><mi>&beta;</mi></msub><mo>, </mo><msub><mi>I</mi><mi>&gamma;</mi></msub></math>, where <math><msub><mi>I</mi><mi>&gamma;</mi></msub><mo>=</mo><mn>0</mn></math>.</p>
+	<p>It can be thought of as the projection of the three phase quantities in the ABC space into the two-dimensional &alpha;&beta; space. As mentioned above, if the system is balanced (i. e. the sum of the three currents or voltages is zero), no information is lost.</p>
+	<p>In the case of a two-phase stepper motor, we take the measured stator winding currents I<sub>A</sub> and I<sub>B</sub> and translate them into a two-axis stationary frame (&alpha;, &beta;).</p>
+	</dd>
+
+<dt>2. Park transformation</dt><dd>
+	<p>The <em>dq0</em> or <a href="https://en.wikipedia.org/wiki/Direct-quadrature-zero_transformation"><em>Park transform</em></a> is a Clarke transform combined with a rotation transform so that the reference frame aligns with flux-axis of the stepper motor's rotor. Whereas the Clarke transform is a projection of the 3 phase quantities onto a stationary two-axis reference frame, the Park transform can be thought of as the projection of the 3 phase quantities onto a <em>rotating</em> two-axis reference frame.</p>
+	<ul>
+	<li>The axes are called <em>d</em>for <em>direct</em> and <em>q</em> for <em>quadrature</em>. The (direct) d-axis vector points directly into the rotor's magnetic pole. Current here just creates wasted heat and doesn't produce torque. Therefore we want <math><msub><mi>I</mi><mi>d</mi></msub><mo>=</mo><mn>0</mn></math>. </li>
+	<li>The (quadrature) q-vector is oriented 90&deg; relative to the d-axis. All torque is generated here.</li>
+	</ul>
+	</dd>
+</dl>
+
+<p>After applying the Clarke transform, AC signals appear as DC values. The transformation elimitates time-varying inductances, and we get a <em>linear time-invariant</em> system, which simplifies calculations (e. g. a PI or PID algorithm) significantly. The calculation results can be then transformed back into the original space and can be used to control the stepper motor drivers.</p>
+
+<p>The Clarke transformation matrix C is</p>
+
+<math display="block">
+<mi>C</mi><mo>=</mo><msqrt><mfrac style="padding-top: 5px"><mn>2</mn><mn>3</mn></mfrac></msqrt><mo lspace="5px" rspace="5px">&sdot;</mo><mo>[</mo>
+<mtable><mtr>
+	<mtd>1</mtd>
+	<mtd><mo>&minus;</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mtd>
+	<mtd><mo>&minus;</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mtd>
+</mtr><mtr>
+	<mtd><mn>0</mn></mtd>
+	<mtd><mfrac><msqrt><mn>3</mn></msqrt><mn>2</mn></mfrac></mtd>
+	<mtd><mo>&minus;</mo><mfrac><msqrt><mn>3</mn></msqrt><mn>2</mn></mfrac></mtd>
+</mtr><mtr>
+	<mtd><mfrac><mn>1</mn><msqrt><mn>2</mn></msqrt></mfrac></mtd>
+	<mtd><mfrac><mn>1</mn><msqrt><mn>2</mn></msqrt></mfrac></mtd>
+	<mtd><mfrac><mn>1</mn><msqrt><mn>2</mn></msqrt></mfrac></mtd>
+</mtr></mtable>
+<mo>]</mo>
+</math>
+
+<p>The rotation matrix is</p>
+
+<math display="block">
+<mi>R</mi><mo>=</mo><mo>[</mo><mtable><mtr>
+	<mtd><mo>cos</mo><mi>&Theta;</mi></mtd>
+	<mtd><mo>sin</mo><mi>&Theta;</mi></mtd>
+	<mtd><mn>0</mn></mtd>
+</mtr><mtr>
+	<mtd><mo>&minus;</mo><mo>sin</mo><mi>&Theta;</mi></mtd>
+	<mtd><mo>cos</mo><mi>&Theta;</mi></mtd>
+	<mtd><mn>0</mn></mtd>
+</mtr><mtr>
+	<mtd>0</mtd>
+	<mtd>0</mtd>
+	<mtd>1</mtd>
+</mtr></mtable><mo>]</mo>
+</math>
+
+<p>To convert an ABC-referenced column vector to the XYZ reference frame, the vector must be pre-multiplied by the Clarke transformation matrix:</p>
+
+<math display="block">
+<msub><mover><mi>u</mi><mo>&rarr;</mo></mover><mi>XYZ</mi></msub><mo>=</mo><mi>C</mi><mo>&sdot;</mo><msub><mover><mi>u</mi><mo>&rarr;</mo></mover><mi>ABC</mi></msub>
+</math>
+
+<p>To convert an XYZ-referenced vector to the DQZ reference frame, the vector must be pre-multiplied by the rotation matrix:</p>
+
+<math display="block">
+<msub><mover><mi>u</mi><mo>&rarr;</mo></mover><mi>DQZ</mi></msub><mo>=</mo><mi>R</mi><mo>&sdot;</mo><msub><mover><mi>u</mi><mo>&rarr;</mo></mover><mi>XYZ</mi></msub>
+</math>
+
+<p>The controller uses the rotary encoder to find the rotor angle <math><mi>&Theta;</mi></math>, and performs the following transformations:</p>
+
+<math xmlns="" display="block">
+<msub><mi>I</mi><mi>d</mi></msub><mo>=</mo>
+<msub><mi>I</mi><mi>&alpha;</mi></msub><mo>cos</mo><mi>&Theta;</mi><mo>+</mo><msub><mi>I</mi><mi>&beta;</mi></msub><mo>sin</mo><mi>&Theta;</mi>
+</math>
+<math xmlns="" display="block">
+<msub><mi>I</mi><mi>q</mi></msub><mo>=</mo>
+<mo>&minus;</mo><msub><mi>I</mi><mi>&alpha;</mi></msub><mo>sin</mo><mi>&Theta;</mi><mo>+</mo><msub><mi>I</mi><mi>&beta;</mi></msub><mo>cos</mo><mi>&Theta;</mi>
+</math>
+
+<p>A</p>
+
+<p>In this <i>d</i>&ndash;<i>q</i> view, we can work with scalars instead of sine waves, which enables us to used ordinary "analog" PI or PID control algorithms. If a CNC machine hits a tough spot in the material, the <i>I<sub>q</sub></i> value wild deviate from the target, and the PI loop will instantly react to pull it back.</p>
+	
+
+<h3 cbc>PI Control Algorithm</h3><div>
+
+<p>The PI algorithm executes the following formula:</p>
+
+<math display="block"><mrow>
+	<mi>V</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo></mrow>
+<msub><mi>K</mi><mi>p</mi></msub>
+<mrow style="margin-left:5px">
+	<mi>e</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>+</mo>
+</mrow>
+<msub><mi>K</mi><mi>i</mi></msub><mo stretchy="false">∫</mo>
+<mrow>
+	<mi>e</mi><mo>(</mo><mi>t</mi><mo>)</mo><mi>d</mi><mi>t</mi>
+</mrow></math>
+
+<p>Where <math><mi>e</mi></math> is the difference between actual and expected position, <math><msub><mi>K</mi><mi>p</mi></msub></math> is the proportional gain, and <math><msub><mi>K</mi><mi>i</mi></msub></math> is the integral gain.</p>
+
+</div><!--h3--PI Control Algorithm-->
+
+</div><!--h2--Field Oriented Control (FOC)-->
+
+</body></html>
