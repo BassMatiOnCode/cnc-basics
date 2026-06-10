@@ -1,0 +1,414 @@
+﻿<html><head>
+
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="math.css" />
+
+</head><body>
+
+<h1>Laplace Transform</h1>
+
+<p>An <em>operator</em> takes a function as input and produces another function. A <em>transform</em> does the same thing, but the output function has a different independent variable.</p>
+
+<p>A Laplace operation transforms a function of a real variable <math><mi>t</mi></math> into a function of a different, complex variable <math><mi>s</mi></math>. If <math><mi>t</mi></math> is in the time domain, then <math><mi>s</mi></math> is in the frequency domain. The function in the time domain is usually denoted with a lowercase letter <math><mi>f</mi><mo>(</mo><mi>t</mi><mo>)</mo></math>, the function in the frequency domain is denoted with an uppercase letter <math><mi>F</mi><mo>(</mo><mi>s</mi><mo>)</mo></math>.</p>
+
+<p>Differentiation and integration in the time domain are are transformed into algebraic division and multiplication, which simplifies the solution of differential equations to solving an algebraic equation.</p>
+
+<h2 cbc>Definition</h2><div>
+
+<p>The Laplace transform is defined as</p>
+
+<math display="block" eqn-num="1">
+<mi>F</mi><mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow>
+<mo>=</mo>
+<msubsup><mo>&int;</mo><mn>0</mn><mn>&infin;</mn></msubsup>
+<mi>f</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow>
+<msup><mi>e</mi><mrow><mo>&minus;</mo><mi>s</mi><mi>t</mi></mrow></msup><mi>d</mi><mi>t</mi>
+</math>
+
+<p>where <math><mi>s</mi><mo>=</mo><mi>&delta;</mi><mo>+</mo><mi>i</mi><mo>&omega;</mo></math> with <math><mi>&delta;</mi><mo>,</mo><mi>&omega;</mi><mo>&isin;</mo><mi>&Ropf;</mi></math> and <math><mi>i</mi><mi>=</mi><msqrt><mo>&minus;</mo><mn style="padding-top:2px">1</mn></msqrt><mo>&isin;</mo><mi>&Copf;</mi><ms>.</ms></math></p>
+
+<p>The inverse Laplace transform is defined as</p>
+
+<math display="block" eqn-num="2">
+<mi>f</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>=</mo>
+<msup><mi>L</mi><mo>&minus;1</mo></msup><mrow><mo>{</mo><mi>F</mi><mo>}</mo></mrow><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>=</mo>
+<mfrac>
+	<mn>1</mn>
+	<mrow><mn>2</mn><mi>&pi;</mi><mi>i</mi></mrow>
+</mfrac>
+<munder>
+	<mo>lim</mo>
+	<mrow><mi>T</mi><mo>&rarr;</mo><mn>&infin;</mn></mrow>
+</munder>
+<msubsup>
+	<mo>&int;</mo><mrow><mi>&gamma;</mi><mo>&minus;</mo><mi>i</mi><mi>T</mi></mrow>
+	<mrow><mi>&gamma;</mi><mo>+</mo><mi>i</mi><mi>T</mi></mrow></msubsup>
+<msup>
+	<mi>e</mi>
+	<mrow><mi>s</mi><mi>t</mi></mrow>
+</msup>
+<mi>F</mi><mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow><mi>d</mi><mi>s</mi>
+</math>
+
+<p>where <math><mi>&gamma;</mi><mo>&isin;</mo><mi>&Ropf;</mi></math> so that the contour path of integration is in the region of convergens of <math><mi>F</mi><mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow></math>.</p>
+
+<p>In practise, it is typically more convenient to decompose a Laplace transform into know transforms of functions obtained from a table and construct the inverse by inspection. Some standard Laplace transform tables can be found at</p>
+
+<ul style="list-style-image:none">
+<li><a href="https://tutorial.math.lamar.edu/classes/de/Laplace_Table.aspx">Table Of Laplace Transforms</a> on <a href="https://tutorial.math.lamar.edu/">Paul's Online Notes</a></li>
+<li><a href="https://danielitte.com/maths-formulae/transforms/laplace-transform-pairs?utm_source=copilot.com">Standard Laplace Transform Pairs</a> on <a href="https://danielitte.com/">Danielitte.com</a>.</li>
+<li><a href="https://math.mit.edu/~hrm/18.031/laptable.pdf?utm_source=copilot.com">18.031 Laplace Transform Table</a> on MIT Courseware, <a href="https://math.mit.edu/~hrm/18.031/">course 18.031</a>.</li>
+</ul>
+
+</div><!--h2--Definition-->
+
+<h2 cbc>Example: Sine and Cosine Transforms</h2><div>
+
+<p>The Laplace transform of <math><mo>cos</mo><mi>a</mi><mi>t</mi></math> is</p>
+
+<math display="block" eqn-num="3">
+<mo>&Laplacetrf;</mo><mrow><mo>{</mo><mo lspace="0">cos</mo><mi>a</mi><mi>t</mi><mo>}</mo></mrow<mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow>
+<mo>=</mo>
+<msubsup><mo>&int;</mo><mn>0</mn><mn>&infin;</mn></msubsup>
+<mrow style="margin-left:-15px"><mo rspace="0">cos</mo><mrow><mo>(</mo><mi>a</mi><mi>t</mi><mo>)</mo></mrow></mrow>
+<msup><mi>e</mi><mrow><mo>&minus;</mo><mi>s</mi><mi>t</mi></mrow></msup>
+<ms></ms><mi>d</mi><mi>t</mi>
+</math>
+
+<p>We'll exploit the exponential form of cosine with complex exponent:</p>
+
+<math display="block">
+<mo rspace="0">cos</mo><mrow><mo>(</mo><mi>a</mi><mi>t</mi><mo>)</mo></mrow>
+<mo>=</mo>
+<mfrac><mn>1</mn><mn>2</mn></mfrac>
+<mrow><mo>(</mo>
+	<msup><mi>e</mi><mrow><mi>i</mi><mi>a</mi><mi>t</mi></mrow></msup>
+	<mo>+</mo>
+	<msup><mi>e</mi><mrow><mo>&minus;</mo><mi>i</mi><mi>a</mi><mi>t</mi></mrow></msup>
+<mo>)</mo></mrow>
+</math>
+
+<p>...to write (3) as</p>
+
+<math display="block" eqn-num="4">
+<mfrac><mn>1</mn><mn>2</mn></mfrac>
+<ms></ms>
+<msubsup><mo>&int;</mo><mn>0</mn><mn>&infin;</mn></msubsup>
+<mrow style="margin-left:-10px"><mo>(</mo>
+	<msup><mi>e</mi><mrow><mi>i</mi><mi>a</mi><mi>t</mi></mrow></msup>
+	<mo>+</mo>
+	<msup><mi>e</mi><mrow><mo>&minus;</mo><mi>i</mi><mi>a</mi><mi>t</mi></mrow></msup>
+<mo>)</mo></mrow>
+<msup><mi>e</mi><mrow><mo>&minus;</mo><mi>s</mi><mi>t</mi></mrow></msup>
+<mi>d</mi><mi>t</mi>
+<mo>=</mo>
+<mfrac><mn>1</mn><mn>2</mn></mfrac>
+<msubsup><mo lspace="5px">&int;</mo><mn>0</mn><mn>&infin;</mn></msubsup>
+<mrow style="margin-left:-8px">
+	<msup>
+		<mi>e</mi>
+		<mrow><mo lspace="2px">&minus;</mo><mo>(</mo><mi>s</mi><mo>&minus;</mo><mi>i</mi><mi>a</mi><mo>)</mo><mi>t</mi></mrow></msup>
+</mrow>
+<ms></ms><mi>d</mi><mi>t</mi>
+<mo>+</mo>
+<mfrac><mn>1</mn><mn>2</mn></mfrac>
+<msubsup><mo lspace="5px">&int;</mo><mn>0</mn><mn>&infin;</mn></msubsup>
+<mrow style="margin-left:-8px">
+	<msup><mi>e</mi><mrow><mo lspace="5px">&minus;</mo><mo>(</mo><mi>s</mi><mo>+</mo><mi>i</mi><mi>a</mi><mo>)</mo><mi>t</mi></mrow></msup>
+</mrow>
+<ms></ms><mi>d</mi><mi>t</mi>
+</math>
+
+<p>Since</p>
+
+<math display="block">
+<msubsup><mo>&int;</mo><mn>0</mn><mn>&infin;</mn></msubsup>
+<msup><mi>e</mi><mrow><mo>&minus;</mo><mi>&lambda;</mi><mi>t</mi></mrow></msup>
+<mi>d</mi><mi>t</mi>
+<mo>=</mo>
+<mfrac><mn>1</mn><mi>&lambda;</mi></mfrac>
+</math>
+
+<p>with <math><mi>&lambda;</mi><mo>&isin;</mo><mi>&Copf;</mi></math> and <math><mi>&Rscr;&escr;</mi><mo>(</mo><mi>&lambda;</mi><mo>)</mo><mo>&gt;</mo><mn>0</mn></math>, it follows that (4) can be written as</p>
+
+<math display="block">
+<mo>&Laplacetrf;</mo><mrow><mo>{</mo><mo lspace="0">cos</mo><mi>a</mi><mi>t</mi><mo>}</mo></mrow<mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow>
+<mo>=</mo>
+<mfrac><mn>1</mn><mn>2</mn></mfrac>
+<mrow><mo>(</mo>
+	<mfrac><mn>1</mn><mrow><mi>s</mi><mo>&minus;</mo><mi>i</mi><mi>a</mi></mrow></mfrac>
+	<mo>+</mo>
+	<mfrac><mn>1</mn><mrow><mi>s</mi><mo>+</mo><mi>i</mi><mi>a</mi></mrow></mfrac>
+<mo>)</mo></mrow>
+</math>
+
+<p>Simplification yields the final solution:</p>
+
+<math display="block">
+<mo>=</mo>
+<mfrac><mn>1</mn><mn>2</mn></mfrac>
+<mo></mo>
+<mrow>
+	<mfrac>
+	<mrow>
+		<mo>(</mo><mi>s</mi><mo>+</mo><mi>i</mi><mi>a</mi><mo>)</mo>
+		<mo>+</mo>
+		<mo>(</mo><mi>s</mi><mo>&minus;</mo><mi>i</mi><mi>a</mi><mo>)</mo>
+	</mrow><mrow>
+		<mo>(</mo><mi>s</mi><mo>&minus;</mo><mi>i</mi><mi>a</mi><mo>)</mo>
+		<mo>(</mo><mi>s</mi><mo>+</mo><mi>i</mi><mi>a</mi><mo>)</mo>
+	</mrow>
+	</mfrac>
+</math>
+
+
+<math display="block">
+<mo>=</mo>
+<mfrac><mn>1</mn><mn>2</mn></mfrac>
+<mo></mo>
+<mrow>
+	<mfrac>
+	<mrow>
+		<mi>2</mi><mi>s</mi>
+	</mrow><mrow>
+		<msup><mi>s</mi><mn>2</mn></msup>
+		<mo>&minus;</mo>
+		<msup><mrow><mo>(</mo><mi>i</mi><mi>a</mi><mo>)</mo></mrow><mn>2</mn></msup>
+	</mrow>
+	</mfrac>
+</math>
+
+
+<math display="block">
+<mo>=</mo>
+<mrow>
+	<mfrac>
+	<mi>s</mi>
+	<mrow>
+		<msup><mi>s</mi><mn>2</mn></msup>
+		<mo>+</mo>
+		<msup><mi>a</mi><mn>2</mn></msup>
+	</mrow>
+	</mfrac>
+</math>
+
+<p>The sine function can be treated similarly:</p>
+
+<math display="block">
+<mi>sin</mi><mrow><mo>(</mo><mi>a</mi><mi>t</mi><mo>)</mo></mrow>
+<mo>=</mo>
+<mfrac>
+	<mrow>
+		<msup>
+			<mi>e</mi>
+			<mrow><mi>i</mi><mi>a</mi><mi>t</mi></mrow>
+		</msup>
+		<mo>&minus;</mo>
+		<msup>
+			<mi>e</mi>
+			<mrow><mi>&minus;</mi><mi>i</mi><mi>a</mi><mi>t</mi></mrow>
+		</msup>
+	</mrow><mreow>
+		<mi>2</mi><mi>i</mi>
+	</mreow>
+	</mfrac>
+</math>
+
+</div><!--h2--Example: Sine and Cosine Transforms-->
+
+<h2 cbc>Example: Hooke's Law</h2><div>
+
+<p> For example, the equation of the simple harmonic oscillator (Hooke's law)</p>
+
+<math display="block">
+<mfrac>
+	<mrow><msup><mi>d</mi><mn>2</mn></msup><mi>x</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow>
+	<mrow><mi>d</mi><msup><mi>t</mi><mn>2</mn></msup></mrow>
+</mfrac>
+<mo></mo>
+<mo>+</mo>
+<mi>k</mi><mi>x</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow>
+<mo>=</mo><mn>0</mn>
+</math>
+
+<p>To find a solution for <math><mi>x</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></math>, we will transform the equation into the <math><mi>s</mi></math> domain. We start with finding the Laplace transform of the first derivative:</p>
+
+<math display="block">
+<mi>L</mi><mrow><mo>{</mo><msup><mi>x</mi><mo>&prime;</mo></msup><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>}</mo></mrow>
+<mo>=</mo>
+<mi>s</mi><mi>X</mi><mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow>
+<mo>&minus;</mo><mi>x</mi><mrow><mo>(</mo><mn>0</mn><mo>)</mo></mrow>
+<mo>=</mo>
+<mi>s</mi><mi>X</mi><mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow>
+<mo>&minus;</mo><msub><mi>x</mi><mn>0</mn></msub>
+</math>
+
+<p>Then the second derivative:</p>
+
+<math display="block">
+<mi>L</mi><mrow><mo>{</mo><msup><mi>x</mi><mo>&Prime;</mo></msup><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>}</mo></mrow>
+<mo>=</mo>
+<msup><mi>s</mi><mn>2</mn></msup><mi>X</mi><mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow>
+<mo>&minus;</mo>
+<mi>s</mi><mi>x</mi><mrow><mo>(</mo><mn>0</mn><mo>)</mo></mrow>
+<mo>&minus;</mo>
+<msup><mi>x</mi><mo>&prime;</mo></msup><mrow><mo>(</mo><mn>0</mn><mo>)</mo></mrow>
+<mo>=</mo>
+<msup><mi>s</mi><mn>2</mn></msup><mi>X</mi><mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow>
+<mo>&minus;</mo>
+<mi>s</mi><msub><mi>x</mi><mn>0</mn></msub>
+<mo>&minus;</mo>
+<mi>v</mi><mn>0</mn></msub>
+</math>
+
+<p>Now we can apply the transformation:</p>
+
+<math display="block">
+<mi>L</mi><mrow><mo>{</mo><msup><mi>x</mi><mo>&Prime;</mo></msup><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>}</mo></mrow>
+<mo>+</mo>
+<mi>k</mi><mi>L</mi><mrow><mo>{</mo><mrow><mi>x</mi><mo>(</mo><mi>t</mi><mo>)</mo></mrow><mo>}</mo></mrow>
+<mo>=</mo>
+<mi>L</mi><mrow><mo>{</mo><mn>0</mn><mo>}</mo></mrow>
+<mo>=</mo>
+<mn>0</mn>
+</math>
+
+<math display="block">
+<msup><mi>s</mi><mn>2</mn></msup><mi>X</mi><mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow>
+<mo>&minus;</mo>
+<mi>s</mi><msub><mi>x</mi><mn>0</mn></msub>
+<mo>&minus;</mo>
+<mi>v</mi><mn>0</mn></msub>
+<mo>+</mo>
+<mi>k</mi><mi>X</mi><mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow>
+<mo>=</mo>
+<mn>0</mn>
+</math>
+
+<p>Isolating <math><mi>X</mi><mo>(</mo><mi>s</mi><mo>)</mo></math> produces the solution in the frequency domain:</p>
+
+<math display="block">
+<mi>X</mi><mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow>
+<mrow><mo>(</mo>
+<msup><mi>s</mi><mn>2</mn></msup>
+<mo>+</mo>
+<mi>k</mi>
+<mo>)</mo></mrow>
+<mo>=</mo>
+<mi>s</mi><msub><mi>x</mi><mn>0</mn></msub>
+<mo>+</mo>
+<mi>v</mi><mn>0</mn></msub>
+</math>
+
+<math display="block" eqn-num="1">
+<mi>X</mi><mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow>
+<mo>=</mo>
+<mfrac>
+<mrow>
+	<mi>s</mi><msub><mi>x</mi><mn>0</mn></msub>
+	<mo>+</mo>
+	<msub><mi>v</mi><mn>0</mn></msub>
+</mrow><mrow>
+	<msup><mi>s</mi><mn>2</mn></msup><mo>+</mo><mi>k</mi>
+</mrow>
+</mfrac>
+<mo>=</mo>
+<mfrac>
+<mrow>
+	<mi>s</mi><msub><mi>x</mi><mn>0</mn></msub>
+</mrow><mrow>
+	<msup><mi>s</mi><mn>2</mn></msup><mo>+</mo><mi>k</mi>
+</mrow>
+</mfrac>
+<mo>+</mo>
+<mfrac>
+<mrow>
+	<msub><mi>v</mi><mn>0</mn></msub>
+</mrow><mrow>
+	<msup><mi>s</mi><mn>2</mn></msup><mo>+</mo><mi>k</mi>
+</mrow>
+</mfrac>
+</math>
+
+<p>For the inverse transformation, recall the standard Laplace pairs for <math><mi>k</mi><mo>&gt;</mo><mn>0</mn></math>:</p>
+
+<math display="block" eqn-num="2">
+<mi>L</mi><mo>{</mo><mi>cos</mi><mrow><mo>(</mo><msqrt><mi>k</mi></msqrt><mi>t</mi><mo>)</mo></mrow><mo>}</mo>
+<mo>=</mo><mfrac>
+	<mi>s</mi>
+	<mrow><msup><mi>s</mi><mn>2</mn></msup><mo>+</mo><mi>k</mi></mrow>
+</mfrac>
+</math>
+
+<math display="block" eqn-num="3">
+<mi>L</mi><mrow><mo>{</mo><mi>sin</mi><mrow><mo>(</mo><msqrt><mi>k</mi></msqrt><mi>t</mi><mo>)</mo></mrow><mo>}</mo></mrow>
+<mo>=</mo><mfrac>
+	<msqrt><mi>k</mi></msqrt>
+	<mrow><msup><mi>s</mi><mn>2</mn></msup><mo>+</mo><mi>k</mi></mrow>
+</mfrac>
+</math>
+
+<p>The inverse Laplace transformation of (1):</p>
+
+<math display="block">
+<mi>x</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow>
+<mo>=</mo>
+<msup><mi>L</mi><mn>&minus;1</mn></msup><mrow><mo>{</mo><mi>X</mi><mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow><mo>}</mo></mrow>
+<mo>=</mo>
+<msup><mi>L</mi><mn>&minus;1</mn></msup><mrow><mo>{</mo><msub><mi>x</mi><mn>0</mn></msub><ms></ms><mfrac><mi>s</mi><mrow><msup><mi>s</mi><mn>2</mn></msup><mo>+</mo><mi>k</mi></mrow></mfrac><mo>}</mo></mrow>
+<mo>+</mo>
+<msup><mi>L</mi><mn>&minus;1</mn></msup><mrow><mo>{</mo><msub><mi>v</mi><mn>0</mn></msub><ms></ms><mfrac><mn>1</mn><mrow><msup><mi>s</mi><mn>2</mn></msup><mo>+</mo><mi>k</mi></mrow></mfrac><mo>}</mo></mrow>
+</math>
+
+<p>Injecting (2) and (3) produces the solution in the time domain:</p>
+
+<math display="block">
+<mi>x</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow>
+<mo>=</mo>
+<msub><mi>x</mi><mn>0</mn></msub><ms></ms><mi>cos</mi><mrow><mo>(</mo><msqrt><mi>k</mi></msqrt><mi>t</mi><mo>)</mo></mrow>
+<mo>+</mo>
+<mfrac>
+	<msub><mi>v</mi><mn>0</mn></msub>
+	<msqrt><mi>k</mi></msqrt>
+</mfrac>
+<mo>sin</mo><mrow><mo>(</mo><msqrt><mi>k</mi></msqrt><mi>t</mi><mo>)</mo></mrow>
+</math>
+
+<hr />
+
+<math display="block" eqn-num="2">
+<msup><mi>s</mi><mn>2</mn></msup><mi>X</mi><mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow>
+<mo>&minus;</mo><mi>s</mi><mi>x</mi><mrow><mo>(</mo><mn>0</mn><mo>)</mo></mrow>
+<mo>&minus;</mo>
+<mfrac>
+	<mi>d</mi>
+	<mrow><mi>d</mi><mi>t</mi><mrow></mrow></mrow>
+	</mfrac><mo></mo>
+<mi>x</mi><mrow><mo>(</mo><mn>0</mn><mo>)</mo></mrow>
+<mo>+</mo><mi>k</mi><mi>X</mi><mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow>
+<mo>=</mo><mn>0</mn>
+</math>
+
+<p>Note that the transformation introduces the <em>initial conditions</em> <math><mi>x</mi><mrow><mo>(</mo><mn>0</mn><mo>)</mo></mrow></math> and <math><msup><mi>x</mi><mo>&prime;</mo></msup><mrrow><mo>(</mo><mn>0</mn><mo>)</mo></mrrow></math>. The equation can be solved for the unknown <math><mi>X</mi><mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow><ms>.</ms></math> Once solved, the inverse Laplace transform can be used to transform it to the original domain.</p>
+
+<math display="block" eqn-num="3">
+<mi>X</mi><mrow><mo>(</mo><mi>s</mi><mo>)</mo></mrow>
+<mo>=</mo>
+<mfrac><mrow>
+	<mi>s</mi><mi>x</mi><mrow><mo>(</mo><mn>0</mn><mo>)</mo></mrow>
+	<mo>+</mo>
+	<mfrac>
+		<mrow><mi>d</mi><mi>x</mi><mrow><mo>(</mo><mn>0</mn><mo>)</mo></mrow></mrow>
+		<mrow><mi>d</mi><mi>t</mi><mrow></mrow></mrow>
+	</mfrac><mo></mo>
+</mrow>
+<mrow><mo>(</mo>
+	<msup><mi>s</mi><mn>2</mn></msup>
+	<mo>+</mo><mi>k</mi>
+	<mo>)</mo></mrow>
+</mfrac>
+</math>
+
+</div><!--h2--Example: Hooke's Law-->
+
+</body></html>

@@ -1,0 +1,32 @@
+
+a { 
+	text-decoration : none ;
+	}
+a:hover { 
+	text-decoration : underline ; 
+	}
+body { 
+	margin-left : 40px ; 
+	margin-right : 0 ; 
+	padding-right : 10px ; 
+	border-right : 1px solid silver ; 
+	padding-bottom : 50px ;
+	}
+dl.indent-titles dt {
+	margin-left : 20px ;
+	}
+figcaption {
+	font-style : italic ;
+	font-size : 14px ;
+	color : #606060 ;
+	}
+html {
+	font-family : "palatino linotype" , "times new roman" , serif ;
+	}
+img {
+	margin-top : 15px ;
+	margin-bottom : 20px ;
+	}
+math[ display = "block" ] + math[ display = "block" ] {
+	margin-top : 20px ;
+	}

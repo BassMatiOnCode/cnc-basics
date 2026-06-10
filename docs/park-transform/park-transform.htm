@@ -1,38 +1,60 @@
 ﻿<html><head>
 
-<style>
-a { text-decoration : none }
-a:hover { text-decoration : underline }
-body { 
-	margin-left : 20px ; 
-	margin-right : 0 ; 
-	padding-right : 10px ; 
-	border-right : 1px solid silver ; 
-	padding-bottom : 50px ;
-	}
-html {
-	font-family : "palatino linotype" , "times new roman" , serif ;
-	}
-math[ display = "block" ] + math[ display = "block" ] {
-	margin-top : 20px ;
-	}
-</style>
+<link rel="stylesheet" href="../styles.css" />
 
 </head><body>
 
 <h1>Park Transform</h1>
 
-<p>In a three-phase electric system, we have three sinusoidal waveforms with a phase shift of 120&deg; between them:</p>
+<p>The <em>Park transform</em> projects the rotating current or voltage vectors from a static ABC reference frame into a rotating DQY reference frame without loss of information, and thereby eliminates time-dependencies of values. Instead of sine and cosine functions, we only deal with static amplitudes. This simplifies calculations such as PI or PID control algorithms drastically. The results are then transformed back into the ABC reference frame and can be applied to the motor drive circuits.</p>
 
-<figure><figcaption>Waveforms</figcaption>
+<p>In a symmetric three-phase system, such as an induction motor, we have three currents, <math><msub><mi>I</mi><mi>A</mi></msub></math>, <math><msub><mi>I</mi><mi>B</mi></msub></math> and <math><msub><mi>I</mi><mi>C</mi></msub></math>:</p>
+
+<figure><figcaption>A three-phase system</figcaption>
 <img width="200" src="fig-001.svg" />
 </figure>
 
-<figure><figcaption>Waveforms</figcaption>
-<img width="300" src="fig-001.png" />
+<p>These currents create overlapping magnetic fields in the coils <math><msub><mi>L</mi><mi>A</mi></msub></math>, <math><msub><mi>L</mi><mi>B</mi></msub></math> and <math><msub><mi>L</mi><mi>C</mi></msub></math>, which drive the motor's rotor.</p>
+
+
+<p>The voltages between the lines <math><mi>A</mi></math>, <math><mi>B</mi></math> and <math><mi>C</mi></math> are sinusoidal, they have the same amplitude and a phase shift of 120&deg; between each other. Threfore, the current waveforms are sinusoidal, have the same amplitude (peak current), and a phase shift of 120&deg;:</p>
+
+<math display="block">
+<msub><mi>I</mi><mi>A</mi></msub><mo>=</mo><msub><mi>I</mi><mi>p</mi></msub><mo>sin</mo><mo>(</mo><mi>&omega;</mi><mo>)</mo>
+</math>
+
+<math display="block">
+<msub><mi>I</mi><mi>B</mi></msub><mo>=</mo><msub><mi>I</mi><mi>p</mi></msub><mo>sin</mo><mo>(</mo><mi>&omega;</mi><mo>&minus;</mo><mn>2</mn><mo>&sol;</mo><mn>3</mn><mi>&pi;</mi><mo>)</mo>
+</math>
+
+<math display="block">
+<msub><mi>I</mi><mi>C</mi></msub><mo>=</mo><msub><mi>I</mi><mi>p</mi></msub><mo>sin</mo><mo>(</mo><mi>&omega;</mi><mo>&minus;</mo><mn>4</mn><mo>&sol;</mo><mn>3</mn><mi>&pi;</mi><mo>)</mo>
+
+<p>where <math><mi>&omega;</mi><mo>=</mo><mi>2</mi><mi>&pi;</mi><mi>t</mi></math> and the period length <math><mi>t</mi><mo>=</mo><mn>1</mn><mo>&sol;</mo><mi>f</mi></math> is the inverse of the AC frequency. If plotted as waveforms, we get the following graph:</p>
+
+<figure><figcaption>Three-phase system currents and phasors</figcaption>
+<img width="600" src="fig-002.svg" />
 </figure>
 
-<p>The <em>Park transform</em> projects the rotating current or voltage vectors from a static ABC reference frame into a rotating DQY reference frame without loss of information, and thereby eliminates time-dependencies of values. Instead of sine and cosine functions, we only deal with static amplitudes. This simplifies calculations such as PI or PID control algorithms drastically. The results are then transformed back into the ABC reference frame and can be applied to the motor drive circuits.</p>
+<p>The phasors on the left side represent the AC currents as phasors (vectors) in the ABC space:</p>
+
+<figure><figcaption>Vectors in the ABC space</figcaption>
+<img width="250" src="fig-003.svg" />
+</figure>
+
+<p>Mathematically, they can be expressed as </p>
+
+<math display="block">
+<msub><mi>I</mi><mi>A</mi></msub><mo>=</mo><msub><mi>I</mi><mi>p</mi></msub><msup><mi>e</mi><mrow><mi>j</mi><mi>&omega;</mi></mrow></msup>
+</math>
+
+<math display="block">
+<msub><mi>I</mi><mi>B</mi></msub><mo>=</mo><msub><mi>I</mi><mi>p</mi></msub><msup><mi>e</mi><mrow><mi>j</mi><mi>&omega;</mi><mo>+</mo><mn>2</mn><mi>&pi;</mi><mo>/</mo><mn>3</mn></mrow></msup>
+</math>
+
+<math display="block">
+<msub><mi>I</mi><mi>C</mi></msub><mo>=</mo><msub><mi>I</mi><mi>p</mi></msub><msup><mi>e</mi><mrow><mi>j</mi><mi>&omega;</mi><mo>+</mo><mn>4</mn><mi>&pi;</mi><mo>/</mo><mn>3</mn></mrow></msup>
+</math>
 
 <p>The first step of that procedure is the <a href="https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_transformation"><em>Clarke</em></a> or XYZ transformation. The idea is that in blanced 3-phase systems the sum of vectors is zero:</p>
 
@@ -46,7 +68,15 @@ math[ display = "block" ] + math[ display = "block" ] {
 <msub><mi>I</mi><mi>A</mi></msub><mo>+</mo><msub><mi>I</mi><mi>B</mi></msub><mo>=</mo><msub><mi>I</mi><mi>C</mi></msub>
 </math>
 
-<p>The idea is to transform these vectors from the ABC reference frame (coordinate system)  into a XYZ reference frame with <math><msub><mi>I</mi><mi>X</mi></msub></math>, <math><msub><mi>I</mi><mi>Y</mi></msub></math>, <math><msub><mi>I</mi><mi>Z</mi></msub></math> where <math><msub><mi>I</mi><mi>Z</mi></msub><mo>=</mo><mn>0</mn></math> and the x and y axes are orthogonal to each other. This can be done with the Clarke transformation matrix C:</p>
+<p>The idea is to transform these vectors from the ABC reference frame (coordinate system)  into a XYZ reference frame with <math><msub><mi>I</mi><mi>X</mi></msub></math>, <math><msub><mi>I</mi><mi>Y</mi></msub></math>, <math><msub><mi>I</mi><mi>Z</mi></msub></math> where <math><msub><mi>I</mi><mi>Z</mi></msub><mo>=</mo><mn>0</mn></math> and the x and y axes are orthogonal to each other.</p>
+
+<figure><figcaption>Vectors in the XYZ space</figcaption>
+<img width="200" src="fig-004.svg" />
+</figure>
+
+<p>Since <math><msub><mi>I</mi><mi>Z</mi></msub><mo>=</mo><mn>0</mn></math>, the Z axis can be omitted.</p>
+
+<p>This can be done with the Clarke transformation matrix C:</p>
 
 <math display="block">
 <mi>C</mi><mo>=</mo><msqrt><mfrac style="padding-top: 5px"><mn>2</mn><mn>3</mn></mfrac></msqrt><mo lspace="5px" rspace="5px">&sdot;</mo><mo>[</mo>

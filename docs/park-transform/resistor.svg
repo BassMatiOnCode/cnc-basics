@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg width="1920" height="1080" viewBox="960 540 1920 1080" version="1.1" id="svg1" inkscape:version="1.4.3 (0d15f75, 2025-12-25)" sodipodi:docname="resistor.svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview id="namedview1" pagecolor="#ffffff" bordercolor="#ffffff" borderopacity="0.24706" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#ffffff" inkscape:document-units="px" showgrid="true" inkscape:zoom="3.3156" inkscape:cx="-6.6354" inkscape:cy="184.13" inkscape:window-width="1368" inkscape:window-height="860" inkscape:window-x="-7" inkscape:window-y="22" inkscape:window-maximized="1" inkscape:current-layer="use1">
+    <inkscape:grid id="grid1" units="px" originx="0" originy="0" spacingx="5" spacingy="5" empcolor="#0099e5" empopacity="0.30196" color="#0099e5" opacity="0.14902" empspacing="5" enabled="true" visible="true" />
+  </sodipodi:namedview>
+  <defs id="defs1">
+    <symbol id="symbol3">
+      <title id="title3">Resistor 150</title>
+      <rect style="fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:2.5;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers" id="rect2" width="69.996" height="30" x="925" y="525" />
+      <path style="fill:#4d4d4d;fill-opacity:0;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers" d="m 885,540 h 40" id="path2" />
+      <path style="fill:#4d4d4d;fill-opacity:0;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers" d="m 995,540 h 40" id="path3" />
+      <rect style="fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:3;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers" id="rect36" width="69.996" height="30" x="925" y="525" />
+      <path style="fill:#4d4d4d;fill-opacity:0;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers" d="m 885,540 h 40" id="path37" />
+      <path style="fill:#4d4d4d;fill-opacity:0;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers" d="m 995,540 h 40" id="path38" />
+    </symbol>
+    <symbol id="symbol7">
+      <title id="title7">Capacictor 150</title>
+      <path style="fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:1.99998;stroke-dasharray:none;paint-order:stroke fill markers" d="m 884.98,615 h 70" id="path4" sodipodi:nodetypes="cc" />
+      <path style="fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-dasharray:none;paint-order:stroke fill markers" d="M 955,635 V 595" id="path5" />
+      <path style="fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-dasharray:none;paint-order:stroke fill markers" d="M 965,635 V 595" id="path6" />
+      <path style="fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:1.99998;stroke-dasharray:none;paint-order:stroke fill markers" d="M 964.98,615 H 1035" id="path7" sodipodi:nodetypes="cc" />
+    </symbol>
+    <symbol id="symbol19">
+      <ellipse style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1" id="path19" cx="960" cy="765" rx="5.005" ry="4.995" />
+    </symbol>
+    <symbol id="symbol13" style="stroke-width:2;stroke-dasharray:none">
+      <g id="use12-5" inkscape:transform-center-y="6.25" transform="translate(0,75)" style="stroke-width:2;stroke-dasharray:none">
+        <path style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1" id="path14" sodipodi:arc-type="arc" sodipodi:type="arc" sodipodi:cx="960" sodipodi:cy="690" sodipodi:rx="12.5" sodipodi:ry="12.5" sodipodi:start="0" sodipodi:end="3.1416" d="m 972.5,690 a 12.5,12.5 0 0 1 -6.25,10.83 12.5,12.5 0 0 1 -12.5,0 A 12.5,12.5 0 0 1 947.5,690" sodipodi:open="true" inkscape:transform-center-y="6.25" />
+        <path style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1" id="path15" sodipodi:arc-type="arc" sodipodi:type="arc" sodipodi:cx="985" sodipodi:cy="690" sodipodi:rx="12.5" sodipodi:ry="12.5" sodipodi:start="0" sodipodi:end="3.1416" d="m 997.5,690 a 12.5,12.5 0 0 1 -6.25,10.83 12.5,12.5 0 0 1 -12.5,0 A 12.5,12.5 0 0 1 972.5,690" sodipodi:open="true" inkscape:transform-center-y="6.25" />
+        <path style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1" id="path16" sodipodi:arc-type="arc" sodipodi:type="arc" sodipodi:cx="935" sodipodi:cy="690" sodipodi:rx="12.5" sodipodi:ry="12.5" sodipodi:start="0" sodipodi:end="3.1416" d="m 947.5,690 a 12.5,12.5 0 0 1 -6.25,10.83 12.5,12.5 0 0 1 -12.5,0 A 12.5,12.5 0 0 1 922.5,690" sodipodi:open="true" inkscape:transform-center-y="6.25" />
+        <path style="fill:#ffffff;stroke:#4d4d4d;stroke-width:2;stroke-linecap:round;stroke-dasharray:none;paint-order:stroke fill markers" d="m 885,690 h 37.5" id="path17" />
+        <path style="fill:#ffffff;stroke:#4d4d4d;stroke-width:2;stroke-linecap:round;stroke-dasharray:none;paint-order:stroke fill markers" d="M 1035,690 H 997.61" id="path18" sodipodi:nodetypes="cc" />
+      </g>
+      <circle style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1" id="path13" cx="960" cy="765" r="12.5" />
+    </symbol>
+  </defs>
+  <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1">
+    <g id="use1">
+      <title id="title2">Resistor A</title>
+      <use xlink:href="#symbol3" id="use3" />
+      <use xlink:href="#symbol7" id="use7" />
+      <use xlink:href="#symbol19" id="use19" transform="translate(0,50)" />
+      <use xlink:href="#symbol13" id="use20" />
+    </g>
+  </g>
+</svg>
